@@ -1,0 +1,48 @@
+﻿J009：Fast or Fuzix' Forth (fforth)
+
+Home Page：
+https://cowlark.com/fforth/
+
+下載：fforth-master.zip
+https://github.com/davidgiven/fforth
+
+David Given："It should Just Compile on most Unixy platforms."
+
+可是我想在 windows 用 mingw 編譯。
+
+因為我對 forth 算蠻熟的，少幾個 primitive word 也不會影響 forth 的運作。
+所以採取刪減法，把發生編譯錯誤的碼 mark out。(不能刪除，因可能刪錯或要回復)
+
+環境：工作目錄： R:\_W_\ (RAMDRIVE)
+
+開四個視窗：
+
+1. 檔案總管(explorer.exe) 開在工作目錄。
+
+2. notepad++ 編修 fforth.c (我習慣用拉的，因為可以拉多個)
+
+3. 右鍵選單，Open Console2 Here
+
+   gcc -DFAST -m32 -O fforth.c -o fforth.exe > make.log 2>&1
+
+4. 滑鼠點 make.log 右鍵選 NFOPad 查看錯誤訊息。
+   (NFOPad 設置為灰底黑字 820x1080)
+
+然後就是 LOOP -> 2 編修存檔 -> 3 (向上箭頭)編譯 -> 4 查看錯誤訊息 -> ...
+
+第一輪 把沒有的標頭檔用 "//" mark out
+
+其次把發生錯誤的 function 用 "#if 0 ... #endif" mark out。
+且找出這個 function 是哪個字的呼叫，也是用 "//" 把此字 mark out，
+並修正下個字的前向連結 forword link，
+
+這樣的 LOOP 一直到 fforth.exe 出現。
+
+我大概經過 5-6 輪就完成編譯，沒有刪除任何一字，也只修改 forward link。
+
+notepad++ 有一個非常好用的插件 compare，可以查看修改前後的差異。
+(建議只查看，不要編修存檔，一般我都會設兩檔唯讀，以避免無意中存檔)
+
+(END)
+
+https://github.com/jans0204/J009-Fast-or-Fuzix-Forth-fforth-
